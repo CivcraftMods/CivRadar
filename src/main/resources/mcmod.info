@@ -1,10 +1,24 @@
-[
 {
-  "modid": "civradar",
-  "name": "CivRadar",
-  "description": "Radar mod for minecraft",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "authorList": ["TealNerd"]
+	"modListVersion": 2,
+	"modList": [
+		{
+			"modid": "civradar",
+			"name": "CivRadar",
+			"description": "Radar mod for Minecraft.",
+			"mcversion": "${mcversion}",
+			"version": "${version}",
+			"authorList": [
+				"TealNerd",
+				"Gjum",
+				"Ben"
+			],
+			"dependants": [  ],
+			"dependencies": [ "Forge@[${forgeVsn},)"],
+			"parent": "",
+			"requiredMods": [ "Forge@[${forgeVsn},)"],
+			"logoFile": "",
+			"screenshots": [  ],
+			"useDependencyInformation": false
+		}
+	]
 }
-]

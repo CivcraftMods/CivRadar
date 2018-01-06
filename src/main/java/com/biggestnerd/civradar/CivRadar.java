@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -27,7 +25,7 @@ import com.biggestnerd.civradar.gui.GuiRadarOptions;
 public class CivRadar {
 	public final static String MODID = "civradar";
 	public final static String MODNAME = "CivRadar";
-	public final static String VERSION = "1.1";
+	public final static String VERSION = "@VERSION@";
 	private RenderHandler renderHandler;
 	private Config radarConfig;
 	private File configFile;
@@ -46,7 +44,7 @@ public class CivRadar {
 		mc = Minecraft.getMinecraft();
 		instance = this;
 		File oldConfig = new File(event.getModConfigurationDirectory(), "civRadar.json");
-		File radarDir = new File(mc.mcDataDir, "/civradar/");
+		radarDir = new File(mc.mcDataDir, "/civradar/");
 		if(!radarDir.isDirectory()) {
 			radarDir.mkdir();
 		}
@@ -82,9 +80,10 @@ public class CivRadar {
 		}
 		currentWaypoints = new WaypointSave();
 		currentWaypoints.convertZanWayPoint();
-		FMLCommonHandler.instance().bus().register(renderHandler);
+		
 		MinecraftForge.EVENT_BUS.register(renderHandler);
-		FMLCommonHandler.instance().bus().register(this);
+    	MinecraftForge.EVENT_BUS.register(this);
+		
 		ClientRegistry.registerKeyBinding(radarOptions);
 		ClientRegistry.registerKeyBinding(addWaypoint);
 	}

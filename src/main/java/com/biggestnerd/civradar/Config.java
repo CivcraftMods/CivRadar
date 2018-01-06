@@ -7,122 +7,106 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityEndermite;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityGolem;
-import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntityPolarBear;
-import net.minecraft.entity.monster.EntityShulker;
-import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class Config {
 	
 	private boolean enabled = true;
-	private ArrayList<Entity> mobs;
+	private ArrayList<RadarEntity> mobs;
 	private boolean renderCoordinates = true;
 	private boolean extraPlayerInfo = true;
 	private boolean playerNames = true;
-	private int radarX = 0;
-	private int radarY = 0;
+	private float radarX = 0; // from 0 to 1, for left to right
+	private float radarY = 0; // from 0 to 1, for top to bottom
 	private int maxWaypointDistance = 500;
 	private float radarOpacity = 0.5F;
 	private float iconOpacity = 1.0F;
 	private float waypointOpcaity = 0.5F;
 	private boolean renderWaypoints = true;
 	private Color radarColor = new Color(0.0F, 0.5F, 0.5F);
-	private float radarScale = 1.0F;
+	private float radarSize = .4F; // ratio of radar diameter / window height
+	private int radarDistance = 64; // entity render distance in blocks
+	private float iconScale = 1; // icon size in blocks
+
 	public enum NameLocation {above,below};
 	private NameLocation nameLocation = NameLocation.below;
 	private float pingVolume = 0.0F;
-	private boolean dubstepMode = false;
-	private boolean pingRing = true;
-	
+
 	public Config() {
-		mobs = new ArrayList<Entity>(Arrays.asList(new Entity[]{
-				new Entity(EntityBat.class), 
-				new Entity(EntityChicken.class),
-				new Entity(EntityCow.class),
-				new Entity(EntityHorse.class),
-				new Entity(EntityMooshroom.class),
-				new Entity(EntityOcelot.class),
-				new Entity(EntityPig.class),
-				new Entity(EntityRabbit.class),
-				new Entity(EntitySheep.class),
-				new Entity(EntitySquid.class),
-				new Entity(EntityVillager.class),
-				new Entity(EntityWolf.class),
-				new Entity(EntityBlaze.class),
-				new Entity(EntityCaveSpider.class),
-				new Entity(EntityCreeper.class),
-				new Entity(EntityEnderman.class),
-				new Entity(EntityGhast.class),
-				new Entity(EntityGolem.class),
-				new Entity(EntityGuardian.class),
-				new Entity(EntityIronGolem.class),
-				new Entity(EntityMagmaCube.class),
-				new Entity(EntityPigZombie.class),
-				new Entity(EntitySilverfish.class),
-				new Entity(EntitySkeleton.class),
-				new Entity(EntitySlime.class),
-				new Entity(EntitySnowman.class),
-				new Entity(EntitySpider.class),
-				new Entity(EntityWitch.class),
-				new Entity(EntityZombie.class),
-				new Entity(EntityItem.class),
-				new Entity(EntityMinecart.class),
-				new Entity(EntityPlayer.class),
-				new Entity(EntityShulker.class),
-				new Entity(EntityPolarBear.class),
-				new Entity(EntityEndermite.class)
-				}));
+		mobs = getAllMobs();
 	}
 
-	public ArrayList<Entity> getEntities() {
-		ArrayList<Entity> allEntities = new ArrayList<Entity>();
+	private static ArrayList<RadarEntity> getAllMobs() {
+		return new ArrayList<>(Arrays.asList(new RadarEntity[]{
+				new RadarEntity(EntityBat.class),
+				new RadarEntity(EntityChicken.class),
+				new RadarEntity(EntityCow.class),
+				new RadarEntity(EntityHorse.class),
+				new RadarEntity(EntityMooshroom.class),
+				new RadarEntity(EntityOcelot.class),
+				new RadarEntity(EntityPig.class),
+				new RadarEntity(EntityRabbit.class),
+				new RadarEntity(EntitySheep.class),
+				new RadarEntity(EntitySquid.class),
+				new RadarEntity(EntityVillager.class),
+				new RadarEntity(EntityWolf.class),
+				new RadarEntity(EntityBlaze.class),
+				new RadarEntity(EntityCaveSpider.class),
+				new RadarEntity(EntityCreeper.class),
+				new RadarEntity(EntityEnderman.class),
+				new RadarEntity(EntityGhast.class),
+				new RadarEntity(EntityGolem.class),
+				new RadarEntity(EntityGuardian.class),
+				new RadarEntity(EntityIronGolem.class),
+				new RadarEntity(EntityMagmaCube.class),
+				new RadarEntity(EntityPigZombie.class),
+				new RadarEntity(EntitySilverfish.class),
+				new RadarEntity(EntitySkeleton.class),
+				new RadarEntity(EntitySlime.class),
+				new RadarEntity(EntitySnowman.class),
+				new RadarEntity(EntitySpider.class),
+				new RadarEntity(EntityWitch.class),
+				new RadarEntity(EntityZombie.class),
+				new RadarEntity(EntityItem.class),
+				new RadarEntity(EntityBoat.class),
+				new RadarEntity(EntityMinecart.class),
+				new RadarEntity(EntityPlayer.class),
+				new RadarEntity(EntityMule.class),
+				new RadarEntity(EntityDonkey.class),
+				new RadarEntity(EntityLlama.class),
+				new RadarEntity(EntityParrot.class),
+				new RadarEntity(EntityPolarBear.class),
+				new RadarEntity(EntityShulker.class),
+				new RadarEntity(EntityHusk.class),
+				new RadarEntity(EntityEvoker.class),
+				new RadarEntity(EntityIllusionIllager.class),
+				new RadarEntity(EntityStray.class),
+				new RadarEntity(EntityVex.class),
+				new RadarEntity(EntityVindicator.class),
+		}));
+	}
+
+	public ArrayList<RadarEntity> getEntities() {
+		ArrayList<RadarEntity> allEntities = new ArrayList<RadarEntity>();
 		allEntities.addAll(mobs);
 		return allEntities;
 	}
 	
-	public void setRender(Class entityClass, boolean enabled) {
-		for(Entity e : mobs) {
+	public void setRender(Class<? extends Entity> entityClass, boolean enabled) {
+		for(RadarEntity e : mobs) {
 			if(e.getEntityClass().equals(entityClass))
 				e.setEnabled(enabled);
 		}
 	}
 	
-	public boolean isRender(Class entityClass) {
-		for(Entity e : mobs) {
+	public boolean isRender(Class<? extends Entity> entityClass) {
+		for(RadarEntity e : mobs) {
 			if(e.getEntityClass().equals(entityClass)) {
 				return e.isEnabled();
 			}
@@ -142,16 +126,22 @@ public class Config {
 		}
 	}
 	
-	public void setRadarScale(float radarScale) {
-		this.radarScale = radarScale;
+	public void setRadarSize(float radarSize) {
+		this.radarSize = radarSize;
 	}
-	
-	public float getRadarScale() {
-		return radarScale;
+	public float getRadarSize() {
+		return radarSize;
 	}
-	
-	public Entity getMob(Class entityClass) {
-		for(Entity e : mobs) {
+
+	public void setRadarDistance(int radarDistance) {
+		this.radarDistance = radarDistance;
+	}
+	public int getRadarDistance() {
+		return radarDistance;
+	}
+
+	public RadarEntity getMob(Class entityClass) {
+		for(RadarEntity e : mobs) {
 			if(e.getEntityClass().equals(entityClass))
 				return e;
 		}
@@ -190,10 +180,6 @@ public class Config {
 		this.radarColor = new Color(red, green, blue);
 	}
 	
-	public void setPingRing(boolean pingRing) {
-		this.pingRing = pingRing;
-	}
-	
 	public Color getRadarColor() {
 		return radarColor;
 	}
@@ -211,25 +197,17 @@ public class Config {
 		this.renderCoordinates = renderCoordinates;
 	}
 	
-	public int getRadarX() {
+	public float getRadarX() {
 		return radarX;
 	}
-	public void setRadarX(int radarX) {
+	public void setRadarX(float radarX) {
 		this.radarX = radarX;
 	}
-	public int getRadarY() {
+	public float getRadarY() {
 		return radarY;
 	}
-	public void setRadarY(int radarY) {
+	public void setRadarY(float radarY) {
 		this.radarY = radarY;
-	}
-	
-	public boolean isDubstepMode() {
-		return dubstepMode;
-	}
-	
-	public void setDubstepMode(boolean dubstepMode) {
-		this.dubstepMode = dubstepMode;
 	}
 	
 	public int getMaxWaypointDistance() {
@@ -254,6 +232,14 @@ public class Config {
 		this.iconOpacity = iconOpacity;
 	}
 
+	public float getIconScale() {
+		return iconScale;
+	}
+
+	public void setIconScale(float iconScale) {
+		this.iconScale = iconScale;
+	}
+
 	public float getWaypointOpcaity() {
 		return waypointOpcaity;
 	}
@@ -261,17 +247,13 @@ public class Config {
 	public void setWaypointOpcaity(float waypointOpcaity) {
 		this.waypointOpcaity = waypointOpcaity;
 	}
-	
+
 	public boolean isRenderWaypoints() {
 		return renderWaypoints;
 	}
 	
 	public void setRenderWaypoints(boolean renderWaypoints) {
 		this.renderWaypoints = renderWaypoints;
-	}
-	
-	public boolean isPingRing() {
-		return pingRing;
 	}
 
 	public void save(File file) {
@@ -289,11 +271,30 @@ public class Config {
 	
 	public static Config load(File file) {
 		Gson gson = new Gson();
+
 		try {
-			return (Config) gson.fromJson(new FileReader(file), Config.class);
+			Config config = gson.fromJson(new FileReader(file), Config.class);
+
+			ArrayList<RadarEntity> allMobs = getAllMobs();
+
+			for (RadarEntity mob : allMobs) {
+				if (!isMobInList(mob, config.mobs))
+					config.mobs.add(mob);
+			}
+
+			return config;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return new Config();
+	}
+
+	private static boolean isMobInList(RadarEntity mob, ArrayList<RadarEntity> list) {
+		for(RadarEntity current : list) {
+			if(current.getName().equalsIgnoreCase(mob.getName())) return true;
+		}
+
+		return false;
 	}
 }

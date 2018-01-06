@@ -26,7 +26,8 @@ public class GuiPlayerOptions extends GuiScreen {
 		mc = Minecraft.getMinecraft();
 		config = CivRadar.instance.getConfig();
 	}
-	
+
+	@Override
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
@@ -36,7 +37,8 @@ public class GuiPlayerOptions extends GuiScreen {
 		this.buttonList.add(pingVolumeSlider = new GuiSlider(4, this.width / 2 - 100, this.height / 4 + 46, 1.0F, 0.0F, "Ping Volume", config.getPingVolume()));
 		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 68, "Done"));
 	}
-	
+
+	@Override
 	public void actionPerformed(GuiButton button) {
 		if(button.enabled) {
 			if(button.id == 0) {
@@ -54,11 +56,13 @@ public class GuiPlayerOptions extends GuiScreen {
 			CivRadar.instance.saveConfig();
 		}
 	}
-	
+
+	@Override
 	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
 	}
-	
+
+	@Override
 	public void updateScreen() {
 		playerNamesButton.displayString = "Player Names: " + (config.isPlayerNames() ? "Enabled" : "Disabled");
 		playerInfoButton.displayString = "Position Info: " + (config.isExtraPlayerInfo() ? "Enabled" : "Disabled");
@@ -71,7 +75,8 @@ public class GuiPlayerOptions extends GuiScreen {
 		config.setPingVolume(pingVolumeSlider.getCurrentValue());
 		CivRadar.instance.saveConfig();
 	}
-	
+
+	@Override
 	public void drawScreen(int i, int j, float k) {
 		drawDefaultBackground();
 		mc.fontRenderer.drawString("Player names:", this.width / 2 - 50, this.height / 4 - 20, Color.WHITE.getRGB());

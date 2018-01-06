@@ -11,6 +11,7 @@ import com.biggestnerd.civradar.Waypoint;
 import com.biggestnerd.civradar.WaypointSave;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -34,9 +35,10 @@ public class GuiAddWaypoint extends GuiScreen {
 		this.parent = parent;
 		mc = Minecraft.getMinecraft();
 		waypoints = CivRadar.instance.getWaypointSave();
-		textFieldList = new ArrayList();
+		textFieldList = new ArrayList<GuiTextField>();
 	}
-	
+
+	@Override
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
@@ -54,7 +56,8 @@ public class GuiAddWaypoint extends GuiScreen {
 		this.buttonList.add(saveButton = new GuiButton(100, this.width / 2 - 100, this.height / 4 + 152, "Save"));
 		waypointNameField.setFocused(true);
 	}
-	
+
+	@Override
 	public void updateScreen() {
 		redSlider.updateDisplayString();
 		greenSlider.updateDisplayString();
@@ -74,11 +77,13 @@ public class GuiAddWaypoint extends GuiScreen {
 			saveButton.enabled = true;
 		}
 	}
-	
+
+	@Override
 	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
 	}
-	
+
+	@Override
 	public void mouseClicked(int x, int y, int mouseButton) {
 		try {
 			super.mouseClicked(x, y, mouseButton);
@@ -89,7 +94,8 @@ public class GuiAddWaypoint extends GuiScreen {
 			field.mouseClicked(x, y, mouseButton);
 		}
 	}
-	
+
+	@Override
 	public void actionPerformed(GuiButton button) {
 		if(button.enabled) {
 			if(button.id == 100) {
@@ -106,7 +112,8 @@ public class GuiAddWaypoint extends GuiScreen {
 			}
 		}
 	}
-	
+
+	@Override
 	public void keyTyped(char keyChar, int keyCode) {
 		for(int i = 0; i < textFieldList.size(); i++) {
 			if(textFieldList.get(i).isFocused()) {
@@ -117,15 +124,16 @@ public class GuiAddWaypoint extends GuiScreen {
 			mc.displayGuiScreen(parent);
 		}
 	}
-	
+
+	@Override
 	public void drawScreen(int i, int j, float k) {
 		drawDefaultBackground();
 		drawCenteredString(this.fontRenderer, "Add Waypoint", this.width / 2, this.height / 4 - 40, Color.WHITE.getRGB());
 		for(GuiTextField field : textFieldList) {
 			field.drawTextBox();
 		}
-		this.drawRect(this.width / 2 - 100, this.height / 4 + 109, this.width / 2 + 100, this.height / 4 + 141, Color.BLACK.getRGB());
-		this.drawRect(this.width / 2 - 99, this.height / 4 + 110, this.width / 2 + 99, this.height / 4 + 140, new Color(redSlider.getCurrentValue(), greenSlider.getCurrentValue(), blueSlider.getCurrentValue()).getRGB());
+		Gui.drawRect(this.width / 2 - 100, this.height / 4 + 109, this.width / 2 + 100, this.height / 4 + 141, Color.BLACK.getRGB());
+		Gui.drawRect(this.width / 2 - 99, this.height / 4 + 110, this.width / 2 + 99, this.height / 4 + 140, new Color(redSlider.getCurrentValue(), greenSlider.getCurrentValue(), blueSlider.getCurrentValue()).getRGB());
 		super.drawScreen(i, j, k);
 	}
 }

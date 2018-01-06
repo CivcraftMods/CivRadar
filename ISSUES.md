@@ -1,7 +1,7 @@
 #Have an issue? Here's what to do!
 ---
 
-1. [Check the issues page](https://github.com/TealNerd/CivRadar/issues). If someone else had the same issue with the same crash report, just comment there. I don't need 100 issues saying the same thing.
+1. [Check the issues page](https://github.com/CivcraftMods/CivRadar/issues). If someone else had the same issue with the same crash report, just comment there. I don't need 100 issues saying the same thing.
 2. If nobody else has had the issue yet, get the crash report and upload it to pastebin
 3. Step two is important, because if I don't know why your game crashed it's hard for me to fix the issue
 4. If your game didn't crash don't bother with step 2

@@ -25,7 +25,8 @@ public class GuiEditRadarColor extends GuiScreen {
 		this.mc = Minecraft.getMinecraft();
 		this.config = CivRadar.instance.getConfig();
 	}
-	
+
+	@Override
 	public void initGui() {
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
@@ -34,11 +35,13 @@ public class GuiEditRadarColor extends GuiScreen {
 		this.buttonList.add(blueSlider = new GuiSlider(0, this.width / 2 - 100, this.height / 4 + 32, 1.0F, 0.0F, "Blue", config.getRadarColor().getBlue() / 255.0F));
 		this.buttonList.add(new GuiButton(100, this.width / 2 - 100, this.height / 4 + 56, "Done"));
 	}
-	
+
+	@Override
 	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
 	}
-	
+
+	@Override
 	public void actionPerformed(GuiButton button) {
 		if(button.enabled) {
 			if(button.id == 1) {
@@ -58,7 +61,8 @@ public class GuiEditRadarColor extends GuiScreen {
 			}
 		}
 	}
-	
+
+	@Override
 	public void updateScreen() {
 		redSlider.updateDisplayString();
 		greenSlider.updateDisplayString();
@@ -69,7 +73,8 @@ public class GuiEditRadarColor extends GuiScreen {
 		config.setColor(red, green, blue);
 		CivRadar.instance.saveConfig();
 	}
-	
+
+	@Override
 	public void drawScreen(int i, int j, float k) {
 		drawCenteredString(this.fontRenderer, "Edit Radar Color", this.width / 2, this.height / 4 - 40, Color.WHITE.getRGB());
 		super.drawScreen(i, j, k);

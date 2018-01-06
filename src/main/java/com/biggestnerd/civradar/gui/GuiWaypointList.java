@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlot;
 
 import com.biggestnerd.civradar.CivRadar;
-import com.biggestnerd.civradar.Entity;
 import com.biggestnerd.civradar.Waypoint;
 
 public class GuiWaypointList extends GuiScreen {
@@ -27,7 +26,8 @@ public class GuiWaypointList extends GuiScreen {
 	public GuiWaypointList(GuiScreen parent) {
 		this.parent = parent;
 	}
-	
+
+	@Override
 	public void initGui() {
 		this.buttonList.clear();
 		this.buttonList.add(enableButton = new GuiButton(0, this.width / 2 - 100, this.height - 63, 64, 20, "Enable"));
@@ -45,12 +45,13 @@ public class GuiWaypointList extends GuiScreen {
 		deleteButton.enabled = false;
 		this.waypointList = CivRadar.instance.getWaypointSave().getWaypoints();
 	}
-	
+
+	@Override
 	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 		this.waypointListContainer.handleMouseInput();
 	}
-	
+
 	private void enableOrDisableSelectedWaypoint(boolean enabled) {
 		Waypoint point = waypointList.get(selected);
 		CivRadar.instance.getWaypointSave().setEnabled(point, enabled);
@@ -63,7 +64,8 @@ public class GuiWaypointList extends GuiScreen {
 		}
 		CivRadar.instance.saveWaypoints();
 	}
-	
+
+	@Override
 	protected void actionPerformed(GuiButton button) throws IOException	 {
 		if(button.enabled) {
 			if(button.id == 0) {
@@ -90,14 +92,16 @@ public class GuiWaypointList extends GuiScreen {
 			}
 		}
 	}
-	
+
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.waypointListContainer.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRenderer, "Waypoint List", this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
-	
+
+	@Override
 	public void updateScreen() {
 		this.waypointList = CivRadar.instance.getWaypointSave().getWaypoints();
 
@@ -108,11 +112,13 @@ public class GuiWaypointList extends GuiScreen {
 		public WaypointList(Minecraft mc) {
 			super(mc, GuiWaypointList.this.width, GuiWaypointList.this.height, 32, GuiWaypointList.this.height - 64, 36);
 		}
-		
+
+		@Override
 		protected int getSize() {
 			return GuiWaypointList.this.waypointList.size();
 		}
-		
+
+		@Override
 		protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY) {
 			GuiWaypointList.this.selected = slotIndex;
 			boolean isValidSlot = slotIndex >= 0 && slotIndex < getSize();
@@ -121,19 +127,23 @@ public class GuiWaypointList extends GuiScreen {
 			GuiWaypointList.this.editButton.enabled = isValidSlot;
 			GuiWaypointList.this.deleteButton.enabled = isValidSlot;
 		}
-		
+
+		@Override
 		protected boolean isSelected(int slotIndex) {
 			return slotIndex == GuiWaypointList.this.selected;
 		}
-		
+
+		@Override
 		protected int getContentHeight() {
 			return getSize() * 36;
 		}
-		
+
+		@Override
 		protected void drawBackground() {
 			GuiWaypointList.this.drawDefaultBackground();
 		}
-		
+
+		@Override
 		protected void drawSlot(int entryId, int par2, int par3, int par4, int par5, int par6, float par7) {
 			Waypoint point = GuiWaypointList.this.waypointList.get(entryId);
 			GuiWaypointList.this.drawString(mc.fontRenderer, point.getName(), par2 + 1, par3 + 1, Color.WHITE.getRGB());

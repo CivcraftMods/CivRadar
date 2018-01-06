@@ -1,18 +1,18 @@
-## CivRadar (FML 1.12.2) [![Build Status](http://vps40435.vps.ovh.ca/job/CivRadar%201.9/badge/icon)](http://vps40435.vps.ovh.ca/job/CivRadar%201.9/)
+## CivRadar (FML 1.12)
 A radar mod for Civcraft
 
 All the gradle stuff is from [Lunatrius](https://github.com/Lunatrius/Schematica) so ty for that
 
 Installing and Using CivRadar
 ---
-1. Run Minecraft 1.12.2 at least once
-2. Download the [Forge 14.23.1.2555 Installer](http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.1.2555/forge-1.12.2-14.23.1.2555-installer.jar) or [another version](http://files.minecraftforge.net) (OTHER VERSIONS ARE NOT OFFICIALLY SUPPORTED BUT MAY WORK)
+1. Run Minecraft 1.10 at least once (not 1.10.x, just regular 1.10)
+2. Download the [Forge 1.10-12.18.0.1983 Installer](http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.10-12.18.0.1983-1.10.0/forge-1.10-12.18.0.1983-1.10.0-installer.jar) or [another version](http://files.minecraftforge.net) (OTHER VERSIONS ARE NOT OFFICIALLY SUPPORTED BUT MAY WORK)
 3. Run the installer and install forge
 4. [Open your .minecraft folder](http://minecraft.gamepedia.com/.minecraft)
 5. Download the [latest CivRadar release](http://github.com/tealnerd/civradar/releases)
 5. if you don't see a folder called 'mods', create one, then put the CivRadar jar in the mods folder
 6. Open the minecraft launcher
-7. Create a new profile and select the version 'release Forge 1.9-12/16/1/1891'
+7. Create a new profile and select the version 'release Forge 1.10-12.18.0.1983-1.10.0'
 8. Run the forge profile and proceed to enjoy the mod!
 
 Compiling from Source
